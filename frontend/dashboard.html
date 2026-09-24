@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <script>
+      if (!localStorage.getItem('authToken')) {
+        window.location.replace('./login.html');
+      }
+    </script>
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body class="dashboard-page">
+    <header class="site-header">
+      <div class="site-nav">
+        <a class="brand" href="./index.html">
+          <span class="app-name">To Do App</span>
+        </a>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="./index.html">Home</a>
+          <a href="./pricing.html">Pricing</a>
+          <a href="./contact.html">Contact</a>
+          <a href="./dashboard.html" aria-current="page">Dashboard</a>
+          <button id="logoutButton" class="link-button" type="button">Log out</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-shell dashboard-shell">
+      <h1 id="dashboardGreeting" class="dashboard-welcome-badge">Welcome back, User</h1>
+
+      <section class="dashboard-panel">
+        <div class="dashboard-head">
+          <p class="dashboard-status">
+            <span id="totalTaskCount">0 tasks total</span>
+            <span id="lastUpdated">Not updated yet</span>
+          </p>
+          <div class="dashboard-actions">
+            <button class="dashboard-reset-button" type="reset" form="taskForm">Reset task</button>
+            <a class="dashboard-home-link" href="./index.html">Back home</a>
+          </div>
+        </div>
+
+        <h2 class="task-form-heading">Create task</h2>
+
+        <form id="taskForm" class="task-form">
+          <div class="task-form-primary-row">
+            <div class="form-field task-title-field">
+              <input
+                id="taskTitle"
+                name="title"
+                type="text"
+                maxlength="80"
+                aria-label="Title"
+                placeholder="Title"
+                required
+              />
+            </div>
+
+            <div class="form-field task-due-field">
+              <input id="taskDueToggle" class="due-date-toggle" type="checkbox" />
+              <label class="due-date-button" for="taskDueToggle">Add date</label>
+              <input id="taskDueDate" name="dueDate" type="date" aria-label="Due date" />
+            </div>
+
+            <button id="addTaskButton" type="submit">Add task</button>
+          </div>
+
+          <div class="form-field task-description-field">
+            <textarea
+              id="taskDescription"
+              name="description"
+              aria-label="Optional description"
+              placeholder="Optional description"
+            ></textarea>
+          </div>
+        </form>
+
+        <div id="taskMessage" class="message" aria-live="polite" hidden></div>
+
+        <div class="task-list-toolbar">
+          <label for="taskSortSelect">Sort tasks</label>
+          <select id="taskSortSelect" name="taskSort">
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+            <option value="due">Due date</option>
+            <option value="title">A-Z</option>
+          </select>
+        </div>
+
+        <div class="task-board">
+          <div class="task-column-group">
+            <h2 id="pendingHeading" class="task-column-heading">
+              To do
+              <span id="pendingCount" class="count-pill">0</span>
+            </h2>
+
+            <section class="task-column" aria-labelledby="pendingHeading">
+              <ul id="pendingTasks" class="task-list"></ul>
+            </section>
+          </div>
+
+          <div class="task-column-group">
+            <h2 id="completedHeading" class="task-column-heading">
+              Completed
+              <span id="completedCount" class="count-pill">0</span>
+            </h2>
+
+            <section class="task-column" aria-labelledby="completedHeading">
+              <ul id="completedTasks" class="task-list"></ul>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p><span class="app-name">To Do App</span> &copy; 2026</p>
+        <div class="footer-links">
+          <a href="./pricing.html">Pricing</a>
+          <a href="./contact.html">Contact</a>
+        </div>
+      </div>
+    </footer>
+<script src = "./js/config.js"></script>
+<script src="./js/ui-helpers.js"></script>
+<script src="./js/auth.js"></script>
+<script src="./js/task-api.js"></script>
+<script src="./js/task-list.js"></script>
+<script src="./js/dashboard.js"></script>
+  </body>
+</html>
